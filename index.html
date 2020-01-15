@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cocktails by Marconi</title>
+    <link rel="stylesheet" href="bootstrap-4.4.1-dist/css/bootstrap.min.css">
+
+</head>
+
+<body>
+    <h1>Welcome to the Marconi Cocktail Bar</h1>
+    
+    <ul class="list-group">
+    </ul>
+
+</body>
+
+<script src="jquery.js"></script>
+<script src="bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
+
+<script>
+    init = function () {
+        console.log("funziona!")
+        $.getJSON("https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Vodka")
+            .done(onJsonLoad).fail(onJsonFail);
+    }
+    onJsonLoad = function (jsonData) {
+        console.log("JSON caricato");
+        console.log(jsonData);
+        for (cocktail of jsonData.drinks) {
+            item = `<li class="list-group-item">The <span onclick='faiCose()' title='Non premere sulla parola cocktail!!!'>cocktail</span> name is: <a href='#'>${cocktail.strDrink}</a></li>`;
+            $("ul").append(item);
+        }
+    }
+    onJsonFail = function (e) {
+        console.log("Something wrong :(");
+        console.log(e);
+    }
+    faiCose = function () {
+        $("ul").html("Scherzetto");
+    }
+    $(document).ready(init);
+</script>
+
+</html>
